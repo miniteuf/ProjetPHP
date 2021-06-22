@@ -41,12 +41,12 @@ class User implements UserInterface, \Serializable
      * @Assert\Length(
      *     min = 5,
      *     max = 20,
-     *     minMessage = "Ton mot de passe doit faire au minimum {{ limit }} characters (PD).",
-     *     maxMessage = "Ton mot de passe ne doit pas dépasser {{ limit }} characters."
+     *     minMessage = "Ton mot de passe est trop cours, ilq doit faire au minimum {{ limit }} characters.",
+     *     maxMessage = "Ton mot de passe est trop long, il ne doit pas dépasser {{ limit }} characters."
      * )
      * @Assert\NotEqualTo(
      *     propertyPath = "pseudo",
-     *     message = "ton mot de passe ne peut pas être ton email."
+     *     message = "ton mot de passe et ton pseudo sont identique."
      * )
      * @Assert\NotBlank(groups={"registration"})
      */
@@ -125,8 +125,7 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->Pseudo,
             $this->Password,
-            // see section on salt below
-            // $this->salt,
+            
         ));
     }
 
@@ -137,8 +136,7 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->Pseudo,
             $this->Password,
-            // see section on salt below
-            // $this->salt
+           
         ) = unserialize($serialized, array('allowed_classes' => false));
     }
 
